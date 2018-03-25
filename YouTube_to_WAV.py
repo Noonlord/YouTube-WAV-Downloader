@@ -2,11 +2,16 @@ from os import walk
 import os
 import sys
 link = sys.argv[1]
+#Change this path with yours.
+#Also make sure that youtube-dl and ffmpeg installed.
+#Previous versions of youtube-dl can be slow for downloading audio. Make sure you have downloaded the latest version from webpage.
+#https://github.com/rg3/youtube-dl
+mypath = "/home/pi/fmtransmitter/FM_Transmitter_RPi3"
+os.chdir(mypath)
 os.system("youtube-dl --extract-audio " + link)
 
 vidID= link.split("=")[1]
 print "VidID = " + vidID
-mypath = "/home/pi/fmtransmitter/FM_Transmitter_RPi3"
 f = []
 for (dirpath, dirnames, filenames) in walk(mypath):
     f.extend(filenames)
@@ -18,4 +23,4 @@ for i in range(0, len(f)):
                 cmdstr = "ffmpeg -i \"" + vidName + "\" -f wav -flags bitexact \"" + vidName[:-5] + ".wav"  + "\""
                 print cmdstr
                 os.system(cmdstr)
-                os.remove(vidName)
+                os.remove(vidName) #Will remove original opus file. Comment it if you want to keep that file.
