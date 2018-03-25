@@ -1,7 +1,12 @@
 from os import walk
 import os
 import sys
-link = sys.argv[1]
+try:
+        link = sys.argv[1]
+except IndexError:
+        scriptName = sys.argv[0]
+        print "Usage: python " + scriptName + " linkOfVideo"
+        exit()
 #Change this path with yours.
 #Also make sure that youtube-dl and ffmpeg installed.
 #Previous versions of youtube-dl can be slow for downloading audio. Make sure you have downloaded the latest version from webpage.
